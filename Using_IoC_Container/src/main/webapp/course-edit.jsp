@@ -47,6 +47,11 @@
 					
 					<input type="submit" value="Save Course" class="btn btn-primary" />
 					
+					<div>
+						<c:url var="course" value="/"></c:url>
+						<a href="${ course }">Return to courses</a>
+					</div>
+					
 				</form>
 				
 			</div>

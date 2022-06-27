@@ -37,6 +37,13 @@
 					</div>
 					
 					<input type="submit" value="Create Class" class="btn btn-primary" />
+					
+					<div>
+						<c:url var="classes" value="/classes">
+							<c:param name="courseId" value="${course.id}"></c:param>
+						</c:url>
+						<a href="${ classes }">Return to Classes</a>
+					</div>
 				
 				</form>
 

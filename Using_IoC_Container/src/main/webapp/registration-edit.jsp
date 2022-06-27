@@ -40,6 +40,13 @@
 				</div>
 				
 				<input type="submit" value="Register" class="btn btn-primary" />
+				
+				<div>
+					<c:url var="register" value="/registration">
+						<c:param name="openClassId" value="${openClass.id}"></c:param>
+					</c:url>
+					<a href="${ register }">Return to registration</a>
+				</div>
 			</form>
 				
 				

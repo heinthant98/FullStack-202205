@@ -76,6 +76,13 @@
 			</div>
 		
 			<div>
+				<c:url var="classes" value="/classes">
+					<c:param name="courseId" value="${course.id}"></c:param>
+				</c:url>
+				<a href="${ classes }" class="btn btn-primary">Return to open class</a>
+			</div>
+		
+			<div>
 				<c:url var="course" value="/"></c:url>
 				<a href="${ course }" class="btn btn-primary">Return to Course</a>
 			</div>

@@ -76,6 +76,11 @@
 					</c:choose>
 					
 				</div>
+		
+			<div>
+				<c:url var="course" value="/"></c:url>
+				<a href="${ course }" class="btn btn-primary">Return to Course</a>
+			</div>
 	</div>
 </body>
 </html>

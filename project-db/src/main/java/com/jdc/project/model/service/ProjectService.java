@@ -41,7 +41,7 @@ public class ProjectService {
 	private RowMapper<Project> rowMapper;
 
 	public ProjectService() {
-		this.rowMapper = new BeanPropertyRowMapper<>(Project.class);
+		rowMapper = new BeanPropertyRowMapper<>(Project.class);
 	}
 
 	public int create(Project project) {

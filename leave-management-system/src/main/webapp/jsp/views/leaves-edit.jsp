@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,58 @@
 
 	<div class="container">
 		<h3 class="my-4">Leave Application</h3>
+		
+		<div class="row">
+			<div class="col-lg-6 col-md-9 col-sm-12">
+				
+				<c:url var="save" value="/leaves"></c:url>
+				<sf:form action="${ save }" method="post" modelAttribute="form">
+					<sf:hidden path="classId"/>
+					<sf:hidden path="student"/>
+					<sf:hidden path="applyDate"/>
+					
+					<div class="col mb-4">
+						<label class="form-label">Class</label>
+						<span class="form-control">${ classInfo.description } (${ classInfo.startDate })</span>
+					</div>
+					
+					<div class="col mb-4">
+						<label class="form-label">Teacher Name</label>
+						<span class="form-control">${ classInfo.teacherName }</span>
+					</div>
+
+					<div class="col mb-4">
+						<label class="form-label">Student Name</label>
+						<span class="form-control">${ studentInfo.name }</span>
+					</div>
+					<div class="row">
+						<div class="col mb-4">
+							<label class="form-label">Start Date</label>
+							<sf:input path="startDate" type="date" cssClass="form-control"/>
+							<sf:errors path="startDate" cssClass="text-danger"></sf:errors>
+						</div>
+						
+						<div class="col mb-4">
+							<label class="form-label">Days</label>
+							<sf:input path="days" type="number" cssClass="form-control"/>
+							<sf:errors path="days" cssClass="text-danger"></sf:errors>
+						</div>
+					</div>
+					
+					<div class="col mb-4">
+						<label class="form-label">Reason</label>
+						<sf:textarea path="reason" cssClass="form-control"/>
+						<sf:errors path="reason" cssClass="text-danger"></sf:errors>
+					</div>
+									
+					<div>
+						<button type="submit" class="btn btn-outline-danger">
+							<i class="bi bi-save"></i> Save
+						</button>
+					</div>
+				</sf:form>
+			</div>
+		</div>		
 	</div>
 
 </body>

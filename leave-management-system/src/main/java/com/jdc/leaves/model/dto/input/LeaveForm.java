@@ -1,6 +1,10 @@
 package com.jdc.leaves.model.dto.input;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.IntStream;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -19,10 +23,7 @@ public class LeaveForm {
 		this.student = student;
 	}
 
-	public LeaveForm(int classId, int student, LocalDate applyDate,
-			@NotNull(message = "Please enter start date") LocalDate startDate,
-			@Min(value = 1, message = "Please enter leaves days") int days,
-			@NotEmpty(message = "Please enter reson for leaves") String reason) {
+	public LeaveForm(int classId, int student, LocalDate applyDate, LocalDate startDate, int days, String reason) {
 		super();
 		this.classId = classId;
 		this.student = student;
@@ -46,8 +47,10 @@ public class LeaveForm {
 	@Min(value = 1, message = "Please enter leaves days")
 	private int days;
 
-	@NotEmpty(message = "Please enter reson for leaves")
+	@NotEmpty(message = "Please enter reason for leaves")
 	private String reason;
+	
+	
 
 	public int getClassId() {
 		return classId;
@@ -95,6 +98,33 @@ public class LeaveForm {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	public Map<String, Object> leavesInsertParams() {
+		return Map.of(
+				"apply_date", Date.valueOf(applyDate),
+				"classes_id", classId,
+				"student_id", student,
+				"start_date", Date.valueOf(startDate),
+				"days", days,
+				"reason", reason
+				);
+	}
+
+	public List<Map<String, Object>> leavesDayInsertParams() {
+		return IntStream.iterate(0, a -> a + 1).limit(days)
+				.mapToObj(a -> startDate.plusDays(a))
+				.map(this::leavesDayInsertParams)
+				.toList();
+	}
+	
+	private Map<String, Object> leavesDayInsertParams(LocalDate leaveDate) {
+		return Map.of(
+				"leave_date", leaveDate,
+				"leaves_apply_date", Date.valueOf(applyDate),
+				"leaves_classes_id", classId,
+				"leaves_student_id", student
+				);
 	}
 
 }

@@ -12,6 +12,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 
+<c:url var="commonCss" value="/resources/application.css"></c:url>
+<link rel="stylesheet" href="${ commonCss }">
+
 </head>
 <body>
 
@@ -21,6 +24,25 @@
 
 	<div class="container">
 		<h3 class="my-4">Leaves</h3>
+		
+		<form class="row mb-4">
+			<div class="col-auto">
+				<label class="form-label">Date From</label>
+				<input type="date" name="from" value="${ param.from }" class="form-control" />
+			</div>
+
+			<div class="col-auto">
+				<label class="form-label">Date To</label>
+				<input type="date" name="to" value="${ param.to }" class="form-control" />
+			</div>
+			
+			<div class="col btn-wrapper">
+				<button class="btn btn-outline-success">
+					<i class="bi bi-search"></i> Search
+				</button>
+			</div>
+		</form>
+		
 	</div>
 
 </body>

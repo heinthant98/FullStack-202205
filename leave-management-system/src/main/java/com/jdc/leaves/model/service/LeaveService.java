@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,11 +28,28 @@ public class LeaveService {
 	
 	private NamedParameterJdbcTemplate template;
 	
+	private SimpleJdbcInsert leavesInsert;
+
+	private SimpleJdbcInsert leavesDayInsert;
+	
 	@Autowired
 	private ClassService classService;
 	
 	public LeaveService(DataSource dataSource) {
 		template = new NamedParameterJdbcTemplate(dataSource);
+		
+		leavesInsert = new SimpleJdbcInsert(dataSource);
+		leavesInsert.setTableName("leaves");
+		leavesInsert.setColumnNames(List.of(
+				"apply_date", "classes_id", "student_id", "start_date", "days", "reason"
+				));
+		
+		leavesDayInsert = new SimpleJdbcInsert(dataSource);
+		leavesDayInsert.setTableName("leaves_day");
+		leavesDayInsert.setColumnNames(List.of(
+				"leave_date", "leaves_apply_date", "leaves_classes_id", "leaves_student_id"
+				));
+		
 	}
 
 	public List<LeaveListVO> search(Optional<Integer> classId, Optional<LocalDate> from, Optional<LocalDate> to) {
@@ -39,15 +57,13 @@ public class LeaveService {
 		return List.of();
 	}
 
-	public LeaveForm findById(int id) {
-		// TODO implement here
-		return null;
-	}
-
 	@Transactional
-	public int save(LeaveForm form) {
-		// TODO implement here
-		return 0;
+	public void save(LeaveForm form) {
+		leavesInsert.execute(form.leavesInsertParams());
+		
+		for (var param : form.leavesDayInsertParams()) {
+			leavesDayInsert.execute(param);
+		}
 	}
 
 	public List<LeaveSummaryVO> searchSummary(Optional<LocalDate> target) {

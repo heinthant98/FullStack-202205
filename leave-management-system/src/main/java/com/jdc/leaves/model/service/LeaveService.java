@@ -34,8 +34,7 @@ public class LeaveService {
 		template = new NamedParameterJdbcTemplate(dataSource);
 	}
 
-	public List<LeaveListVO> search(Optional<Integer> classId, Optional<String> studentName, Optional<LocalDate> from,
-			Optional<LocalDate> to) {
+	public List<LeaveListVO> search(Optional<Integer> classId, Optional<LocalDate> from, Optional<LocalDate> to) {
 		// TODO implement here
 		return List.of();
 	}

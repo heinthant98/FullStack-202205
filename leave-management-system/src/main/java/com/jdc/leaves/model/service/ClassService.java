@@ -98,7 +98,7 @@ public class ClassService {
 		classDetails.setRegistrations(regService.searchByClassId(id));
 		
 		//add leaves
-		classDetails.setLeaves(leaveService.search(Optional.of(id), Optional.empty(), Optional.empty(), Optional.empty()));
+		classDetails.setLeaves(leaveService.search(Optional.of(id), Optional.empty(), Optional.empty()));
 		
 		return classDetails;
 	}

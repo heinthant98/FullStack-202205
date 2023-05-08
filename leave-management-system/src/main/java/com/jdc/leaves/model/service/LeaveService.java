@@ -55,16 +55,9 @@ public class LeaveService {
 		
 		leavesInsert = new SimpleJdbcInsert(dataSource);
 		leavesInsert.setTableName("leaves");
-		leavesInsert.setColumnNames(List.of(
-				"apply_date", "classes_id", "student_id", "start_date", "days", "reason"
-				));
 		
 		leavesDayInsert = new SimpleJdbcInsert(dataSource);
 		leavesDayInsert.setTableName("leaves_day");
-		leavesDayInsert.setColumnNames(List.of(
-				"leave_date", "leaves_apply_date", "leaves_classes_id", "leaves_student_id"
-				));
-		
 	}
 
 	public List<LeaveListVO> search(Optional<Integer> classId, Optional<LocalDate> from, Optional<LocalDate> to) {

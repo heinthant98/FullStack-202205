@@ -61,12 +61,12 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<td>Id</td>
-							<td>Name</td>
-							<td>Phone Number</td>
-							<td>Email Address</td>
-							<td>Education</td>
-							<td>Classes</td>
+							<th>Id</th>
+							<th>Name</th>
+							<th>Phone Number</th>
+							<th>Email Address</th>
+							<th>Education</th>
+							<th>Classes</th>
 						</tr>
 					</thead>
 					

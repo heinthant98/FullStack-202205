@@ -14,6 +14,11 @@ public class LeaveListVO {
 
 	private int classId;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate classStart;
+
+	private String classInfo;
+
 	private int studentId;
 
 	private String student;
@@ -109,6 +114,22 @@ public class LeaveListVO {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	public LocalDate getClassStart() {
+		return classStart;
+	}
+
+	public void setClassStart(LocalDate classStart) {
+		this.classStart = classStart;
+	}
+
+	public String getClassInfo() {
+		return classInfo;
+	}
+
+	public void setClassInfo(String classInfo) {
+		this.classInfo = classInfo;
 	}
 
 }

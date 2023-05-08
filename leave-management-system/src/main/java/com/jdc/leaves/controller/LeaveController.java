@@ -59,7 +59,8 @@ public class LeaveController {
 			return "leaves-edit";
 		}
 		
-		return "leaves";
+		leavesService.save(form);
+		return "redirect:/leaves";
 	}
 
 	@ModelAttribute("form")

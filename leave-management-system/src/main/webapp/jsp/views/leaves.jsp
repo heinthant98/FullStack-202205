@@ -43,6 +43,42 @@
 			</div>
 		</form>
 		
+		<c:choose>
+			<c:when test="${ empty leavesList }">
+				<div class="alert alert-info">
+					There is no leaves data.
+				</div>
+			</c:when>
+			
+			<c:otherwise>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<td>Class</td>
+							<td>Teacher</td>
+							<td>Apply Date</td>
+							<td>Leave Start Date</td>
+							<td>Leaves Days</td>
+							<td>Reason</td>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<c:forEach var="item" items="${ leavesList }">
+							<tr>
+								<td>${ item.classInfo } (${ item.classStart })</td>
+								<td>${ item.teacher }</td>
+								<td>${ item.applyDate }</td>
+								<td>${ item.startDate }</td>
+								<td>${ item.days } Days</td>
+								<td>${ item.reason }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:otherwise>
+		</c:choose>
+		
 	</div>
 
 </body>

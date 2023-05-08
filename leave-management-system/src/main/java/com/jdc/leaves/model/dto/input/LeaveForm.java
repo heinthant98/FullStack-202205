@@ -49,8 +49,6 @@ public class LeaveForm {
 
 	@NotEmpty(message = "Please enter reason for leaves")
 	private String reason;
-	
-	
 
 	public int getClassId() {
 		return classId;
@@ -98,17 +96,6 @@ public class LeaveForm {
 
 	public void setReason(String reason) {
 		this.reason = reason;
-	}
-
-	public Map<String, Object> leavesInsertParams() {
-		return Map.of(
-				"apply_date", Date.valueOf(applyDate),
-				"classes_id", classId,
-				"student_id", student,
-				"start_date", Date.valueOf(startDate),
-				"days", days,
-				"reason", reason
-				);
 	}
 
 	public List<Map<String, Object>> leavesDayInsertParams() {

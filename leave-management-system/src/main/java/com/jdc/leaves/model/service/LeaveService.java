@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
 import javax.sql.DataSource;
 
@@ -13,9 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,13 +74,14 @@ public class LeaveService {
 		sql.append(" where 1 = 1");
 		
 		var auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth.isAuthenticated() && auth.getAuthorities().contains(authority("Student"))) {
-			if (auth instanceof UsernamePasswordAuthenticationToken token) {
-				sql.append(" and sa.email = :name");
-				params.put("name", token.getName());
-			}
-		}		
+		Function<String, Boolean> hasAuthority = authority -> 
+								auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals(authority));
 		
+		if (hasAuthority.apply("Student")) {
+			sql.append(" and sa.email = :name");
+			params.put("name", auth.getName());
+		}
+								
 		sql.append(classId.filter(c -> c > 0).map(c -> {
 			params.put("classId", c);
 			return " and l.classes_id = :classId";
@@ -100,10 +99,6 @@ public class LeaveService {
 
 		sql.append(" order by l.start_date, l.apply_date, sa.name");
 		return template.query(sql.toString(), params, new BeanPropertyRowMapper<>(LeaveListVO.class));
-	}
-
-	private GrantedAuthority authority(String role) {
-		return AuthorityUtils.commaSeparatedStringToAuthorityList(role).get(0);
 	}
 
 	@Transactional
